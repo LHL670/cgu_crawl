@@ -1,6 +1,9 @@
 import firebase_db_connect
 import jsonTransfer
+import getTime
 db = firebase_db_connect.db()
+
+# 更新userprofile
 
 
 def update_personaldata(personalData):
@@ -11,25 +14,42 @@ def update_personaldata(personalData):
         (items['personalData']['updateTime'])).set(items['cited'])
     ref.set(items['personalData'])
 
+# labellist加入label domain
 
-def update_labelinfo(item, label):
+
+def add_labeluserIDinfo(item, label):
     items = jsonTransfer.jsontransform(item)
-    print(items)
+    print(len(items['userID']))
     ref = db.collection(u'Label-Domain').document(label)
     ref.set(items)
 
+# 新增未被爬過的label
 
-def update_labeldomain(label):
+
+def add_labeldomain(label):
     for i in label:
         ref = db.collection(u'Label-Domain').document(i)
         doc = ref.get()
-        if doc.exists:
-            print('exist')
-        else:
+        if not doc.exists:
             ref.set({u'updateTime': None})
 
+# user profile updatetime
 
-def get_lastupdatelabel():
+
+def get_userupdatetime(ID):
+    users_ref = db.collection(u'cguscholar').document(ID)
+    doc = users_ref.get()
+    if doc.exists:
+        checkTemp = doc.to_dict()
+        Timestamp = checkTemp['updateTime']
+        return Timestamp
+    else:
+        return ('Not found')
+
+# 內容為空的labelname
+
+
+def get_emptylabelname():
     lastlabel = ''
     query = db.collection(
         u'Label-Domain').where(u'updateTime', '==', None).limit(1)
@@ -37,6 +57,8 @@ def get_lastupdatelabel():
     for r in results:
         lastlabel = r.id
     return lastlabel
+
+# 取得最久沒更新的label
 
 
 def get_labelforCGUScholar():
