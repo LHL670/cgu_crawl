@@ -5,11 +5,12 @@ import getTime
 
 def get_labelIDlist(label):
     print(label)
-    url = 'https://scholar.google.com.tw/citations?view_op=search_authors&hl=zh-TW&mauthors=label:' + label
+    url = 'https://scholar.google.com.tw/citations?view_op=search_authors&hl=zh-TW&mauthors=label:"' + label + '"'
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'
     }
-    r = requests.get(url, headers=headers)
+    r = requests.get(url, headers=headers, proxies={
+                     "http": "http://127.0.0.1:8888"})
     soup = BeautifulSoup(r.text, "html.parser")
 
     searchPage = True
