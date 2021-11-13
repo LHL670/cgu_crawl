@@ -4,7 +4,7 @@ import getTime
 
 def get_labelIDlist(label):
     print(label)
-    url = 'https://scholar.google.com.tw/citations?view_op=search_authors&hl=zh-TW&mauthors=label:' + label 
+    url = 'https://scholar.google.com.tw/citations?view_op=search_authors&hl=zh-TW&mauthors=label:' + label
     soup = get_requests.urlcontent(url)
 
     searchPage = True
@@ -18,7 +18,7 @@ def get_labelIDlist(label):
             id.replace(" ", "_")
             # print(id)
             tempList.append(id)
-            
+
         Label['userID'] = tempList
         try:
             # split nextpage after_author
@@ -26,9 +26,9 @@ def get_labelIDlist(label):
                 'button', class_='gs_btnPR gs_in_ib gs_btn_half gs_btn_lsb gs_btn_srt gsc_pgn_pnx')['onclick'].split('author\\x3d')[1].split('\\x26')[0]
             page = str(int(page) + 10)
 
-            #running check 
+            # running check
 
-            if (int(page) % 100 ==0):
+            if (int(page) % 100 == 0):
                 print(page)
 
             url = 'https://scholar.google.com.tw/citations?view_op=search_authors&hl=zh-TW&mauthors=label:' + \

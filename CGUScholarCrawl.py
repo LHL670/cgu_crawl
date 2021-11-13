@@ -72,6 +72,6 @@ def profileresult(soup, ID):
 
 
 def get_personalpage(id):
-    url = 'https://scholar.google.com.tw/citations?hl=zh-TW&user=' + id    
+    url = 'https://scholar.google.com.tw/citations?hl=zh-TW&user=' + id
     soup = get_requests.urlcontent(url)
     return profileresult(soup, id)
