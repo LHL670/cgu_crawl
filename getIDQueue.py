@@ -13,12 +13,12 @@ def get_IDqueue(label):
     label_ref = db.collection(u'Label-Domain').document(label)
     docs = label_ref.get()
     IDtemp = docs.to_dict()
-    
+
     for i in IDtemp['userID']:
         print(i)
         expire_time = manageFirebase.get_userupdatetime(i)
         if(getTime.check_expires(expire_time, 30)):
-            
+
             IDQueue.put(i)
             # number = number - 1
         # ID_count = ID_count + 1

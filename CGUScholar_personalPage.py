@@ -18,9 +18,11 @@ class CGUScholar(threading.Thread):
         while self.queue.qsize() > 0:
             user_ID = self.queue.get()
             personalinfo = CGUScholarCrawl.get_personalpage(user_ID)
-            check_personalformat = checkDataformat.personalinfoformat(
-                personalinfo)
-
+            try:
+                check_personalformat = checkDataformat.personalinfoformat(
+                    personalinfo)
+            except:
+                continue
             # ID和name 為空或格式錯誤時回傳False,格式錯誤修正後回傳rewriteInfo
             if(not check_personalformat):
                 personalinfo = check_personalformat
