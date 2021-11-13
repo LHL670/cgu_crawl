@@ -74,11 +74,10 @@ def testdocker():
         url = 'http://httpbin.org/ip'
         headers = {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36',
-
         }
 
         ip = requests.get(url, headers=headers, proxies={
-                          "http": "http://0.0.0.0:8888"}).text
+            "http": "http://0.0.0.0:8888"}).text
 
         if ip:
             print(ip)
@@ -96,12 +95,21 @@ if __name__ == '__main__':
     LabelCrawl("reorganize", label)
     CGUCrawlWorker(label)
 
-    # label = manageFirebase.get_emptylabelname()  # limit
-    # LabelCrawl("empty", label)
-    # CGUCrawlWorker(label)
 
-    # # add label ,userID is null
-    # LabelCrawl("empty", None)
+# label = manageFirebase.get_emptylabelname()  # limit
+# LabelCrawl("empty", label)
+# CGUCrawlWorker(label)
 
-    # for testing
-    # testdocker()
+# label = manageFirebase.get_emptylabelname()  # limit
+# LabelCrawl("empty", label)
+# CGUCrawlWorker(label)
+
+label = manageFirebase.get_emptylabelname()  # limit
+LabelCrawl("empty", label)
+CGUCrawlWorker(label)
+
+# # add label ,userID is null
+# LabelCrawl("empty", None)
+
+# for testing
+testdocker()
