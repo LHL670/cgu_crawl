@@ -96,12 +96,22 @@ if __name__ == '__main__':
     LabelCrawl("reorganize", label)
     CGUCrawlWorker(label)
 
+<<<<<<< HEAD
     # label = manageFirebase.get_emptylabelname()  # limit
     # LabelCrawl("empty", label)
     # CGUCrawlWorker(label)
+=======
+    label = manageFirebase.get_emptylabelname()  # limit
+    LabelCrawl("empty", label)
+    CGUCrawlWorker(label)
+>>>>>>> 16a574bbd40934203a9eeb14468d5676f4a923e3
 
     # # add label ,userID is null
     # LabelCrawl("empty", None)
 
     # for testing
+<<<<<<< HEAD
     # testdocker()
+=======
+    testdocker()
+>>>>>>> 16a574bbd40934203a9eeb14468d5676f4a923e3

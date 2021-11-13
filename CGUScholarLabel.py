@@ -5,6 +5,7 @@ import getTime
 
 def get_labelIDlist(label):
     print(label)
+<<<<<<< HEAD
     url = 'https://scholar.google.com.tw/citations?view_op=search_authors&hl=zh-TW&mauthors=label:' + label 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'
@@ -13,6 +14,15 @@ def get_labelIDlist(label):
                           "http": "http://0.0.0.0:8888"}).text
     
     soup = BeautifulSoup(r, "html.parser")
+=======
+    url = 'https://scholar.google.com.tw/citations?view_op=search_authors&hl=zh-TW&mauthors=label:"' + label + '"'
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'
+    }
+    r = requests.get(url, headers=headers, proxies={
+                     "http": "http://127.0.0.1:8888"})
+    soup = BeautifulSoup(r.text, "html.parser")
+>>>>>>> 16a574bbd40934203a9eeb14468d5676f4a923e3
 
     searchPage = True
     tempList = []
