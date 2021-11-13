@@ -1,12 +1,11 @@
-import requests
-from bs4 import BeautifulSoup
+import get_requests
 import getTime
 
 # personal detail
 
 
 # personal detail
-def get_PersonalInfo(soup):
+def get_userprofile(soup):
     info = {}
     d = soup.find('div', id='gsc_prf_i')
 
@@ -63,20 +62,16 @@ def get_CiteBy(soup):
     return citeBy
 
 
-def result(soup, ID):
+def profileresult(soup, ID):
     infos = {}
     infos['id'] = ID
-    infos['personalData'] = get_PersonalInfo(soup)
+    infos['personalData'] = get_userprofile(soup)
     infos['cited'] = get_CiteBy(soup)
 
     return infos
 
 
 def get_personalpage(id):
-    url = 'https://scholar.google.com.tw/citations?hl=zh-TW&user=' + id
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'
-    }
-    r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, "html.parser")
-    return result(soup, id)
+    url = 'https://scholar.google.com.tw/citations?hl=zh-TW&user=' + id    
+    soup = get_requests.urlcontent(url)
+    return profileresult(soup, id)

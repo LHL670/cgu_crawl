@@ -1,6 +1,5 @@
 import firebase_db_connect
 import jsonTransfer
-import getTime
 db = firebase_db_connect.db()
 
 # 更新userprofile
