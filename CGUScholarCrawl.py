@@ -10,15 +10,20 @@ def get_userprofile(soup):
     d = soup.find('div', id='gsc_prf_i')
 
     # name
-    info['name'] = d.find('div', id='gsc_prf_in').text
+    try:
+        info['name'] = d.find('div', id='gsc_prf_in').text
+    except:
+        print('None')
     # university
     try:
         info['university'] = d.find('a', class_='gsc_prf_ila').text
     except:
         info['university'] = ' '
     # picture
-    info['picture'] = soup.find('div', id='gsc_prf_pua').find('img')['src']
-
+    try:
+        info['picture'] = soup.find('div', id='gsc_prf_pua').find('img')['src']
+    except:
+        info['picture'] = 'https://scholar.google.com.tw/citations/images/avatar_scholar_128.png'
     label = []
     for p in soup.find_all('a', class_='gsc_prf_inta gs_ibl'):
         ptemp = p.text.replace(" ", "_")

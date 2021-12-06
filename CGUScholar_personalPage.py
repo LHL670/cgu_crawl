@@ -24,10 +24,13 @@ class CGUScholar(threading.Thread):
             except:
                 continue
             # ID和name 為空或格式錯誤時回傳False,格式錯誤修正後回傳rewriteInfo
-            if(not check_personalformat):
-                personalinfo = check_personalformat
-            if(check_personalformat == False):
-                continue
+            if(check_personalformat == True):
+                try:
+                    fix_personalformat = checkDataformat.errorfixpersonalinfoformat(
+                        personalinfo)
+                    personalinfo = fix_personalformat
+                except:
+                    continue
             manageFirebase.update_personaldata(personalinfo)
             manageFirebase.add_labeldomain(
                 personalinfo['personalData']['label'])
@@ -42,9 +45,14 @@ def LabelCrawl(label):  # if empty ,updatelabel is null
     check_labelformat = checkDataformat.labelinfoformat(labellist)
 
     # label list 為空或格式錯誤時回傳False,格式錯誤修正後回傳rewriteInfo
-    if(not check_labelformat):
-        labellist = check_labelformat
-    if(check_labelformat == False):
+    if(check_labelformat == True):
+        try:
+            fix_labelformat = checkDataformat.errorfixlabelinfoformat(
+                labellist)
+            labellist = fix_labelformat
+        except:
+            print("label crawl fail!")
+    else:
         print("label crawl fail!")
     manageFirebase.add_labeluserIDinfo(labellist, label)
     print('label final')

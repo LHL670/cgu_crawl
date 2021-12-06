@@ -4,14 +4,18 @@ import datetime
 
 def personalinfoformat(data):
     # check id format
-    rewriteData = data
-    personalData = data['personalData']
     if (data['id'][7::] != 'AAAAJ' or data['id'] == ' ' or data['id'] == None):
         return False
     # check personal data format
-    if(personalData['name'] == ' ' or personalData['name'] == None):
+    if(data['personalData']['name'] == ' ' or data['personalData']['name'] == None):
         return False
+    else:
+        return True
 
+
+def errorfixpersonalinfoformat(data):
+    rewriteData = data
+    personalData = data['personalData']
     if(personalData['university'] == ' ' or personalData['university'] == '首頁' or personalData['university'] == None):
         rewriteData['personalData']['university'] = 'None'
 
@@ -33,13 +37,17 @@ def personalinfoformat(data):
 
 
 def labelinfoformat(data):
-    rewriteData = data
     if(len(data['userID']) == 0):
         return False
+    else:
+        return True
+
+
+def errorfixlabelinfoformat(data):
+    rewriteData = data
     # check updateTime format
     if(data['updateTime'] == '' or data['updateTime'] == None):
         rewriteData['personalData']['updateTime'] = getTime.currentTime()
-
     try:
         datetime.datetime.strptime(
             data['updateTime'], "%Y-%m-%d %H:%M:%S")

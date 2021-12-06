@@ -37,6 +37,7 @@ def get_labelIDlist(label):
             soup = get_requests.urlcontent(url)
         except:
             searchPage == False
+            print('test')
             break
     Label['updateTime'] = getTime.currentTime()
     return Label
