@@ -1,3 +1,4 @@
+from itertools import count
 import firebase_db_connect
 import jsonTransfer
 db = firebase_db_connect.db()
@@ -53,11 +54,19 @@ def get_userupdatetime(ID):
 
 def get_emptylabelname():
     lastlabel = ''
-    query = db.collection(
-        u'Label-Domain').where(u'updateTime', '==', None).limit(1)
-    results = query.stream()
-    for r in results:
-        lastlabel = r.id
+    limitcount = 1
+    while(1):
+        try:
+            query = db.collection(
+                u'Label-Domain').where(u'updateTime', '==', None).limit(limitcount)
+            results = query.stream()
+            for r in results:
+                lastlabel = r.id
+            break
+        except:
+            limitcount = limitcount + 1
+            continue
+    print(lastlabel)
     return lastlabel
 
 # 取得最久沒更新的label

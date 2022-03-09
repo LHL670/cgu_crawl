@@ -44,6 +44,6 @@ def get_labelIDlist(label):
             searchPage == False
             print('test')
             break
-            time.sleep(2)
+        time.sleep(2)
     Label['updateTime'] = getTime.currentTime()
     return Label
