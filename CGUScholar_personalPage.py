@@ -4,7 +4,7 @@ import manageFirebase
 import CGUScholarCrawl
 import checkDataformat
 import getIDQueue
-import CGUScholarLabel
+import CGUScholar_LabelDomain
 import requests
 # Worker 類別，負責處理資料
 
@@ -36,26 +36,6 @@ class CGUScholar(threading.Thread):
                 personalinfo['personalData']['label'])
 
             time.sleep(1)
-
-
-def LabelCrawl(label):  # if empty ,updatelabel is null
-    print('label start')
-
-    labellist = CGUScholarLabel.get_labelIDlist(label)
-    check_labelformat = checkDataformat.labelinfoformat(labellist)
-
-    # label list 為空或格式錯誤時回傳False,格式錯誤修正後回傳rewriteInfo
-    if(check_labelformat == True):
-        try:
-            fix_labelformat = checkDataformat.errorfixlabelinfoformat(
-                labellist)
-            labellist = fix_labelformat
-        except:
-            print("label crawl fail!")
-    else:
-        print("label crawl fail!")
-    manageFirebase.add_labeluserIDinfo(labellist, label)
-    print('label final')
 
 
 def CGUCrawlWorker(label):
@@ -97,10 +77,12 @@ if __name__ == '__main__':
     print('start')
 
     # update oldest label then crwal user profile
-
-    label = manageFirebase.get_labelforCGUScholar()
-    LabelCrawl(label)
-    CGUCrawlWorker(label)
+    while(1):
+        label = manageFirebase.get_labelforCGUScholar()
+        CGUScholar_LabelDomain.LabelCrawl(label)
+        CGUCrawlWorker(label)
+        print("sleep 10 second!")
+        time.sleep(10)
 
     # update null label userID
 

@@ -1,5 +1,6 @@
 import get_requests
 import getTime
+import time
 
 
 def get_labelIDlist(label):
@@ -22,8 +23,12 @@ def get_labelIDlist(label):
         Label['userID'] = tempList
         try:
             # split nextpage after_author
-            afterAuthor = soup.find('div', id='gsc_authors_bottom_pag').find(
-                'button', class_='gs_btnPR gs_in_ib gs_btn_half gs_btn_lsb gs_btn_srt gsc_pgn_pnx')['onclick'].split('author\\x3d')[1].split('\\x26')[0]
+            try:
+                afterAuthor = soup.find('div', id='gsc_authors_bottom_pag').find('button', class_='gs_btnPR gs_in_ib gs_btn_half gs_btn_lsb gs_btn_srt gsc_pgn_pnx')[
+                    'onclick'].split('after_author\\x3d')[1].split('\\x26astart')[0]
+            except:
+                afterAuthor = soup.find('div', id='gsc_authors_bottom_pag').find('button', class_='gs_btnPR gs_in_ib gs_btn_half gs_btn_lsb gs_btn_srt gsc_pgn_pnx')[
+                    'onclick'].split('after_author\\x3d')[1].split('\\x26astart')[0]
             page = str(int(page) + 10)
 
             # running check
@@ -39,5 +44,6 @@ def get_labelIDlist(label):
             searchPage == False
             print('test')
             break
+            time.sleep(2)
     Label['updateTime'] = getTime.currentTime()
     return Label
